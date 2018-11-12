@@ -19,8 +19,8 @@ public class WalletManagerImpl implements WalletManager {
     return walletRepository.findAll();
   }
 
-  public Wallet saveWallet(Wallet newTodo) {
-    return walletRepository.save(newTodo);
+  public Wallet saveWallet(Wallet newWallet) {
+    return walletRepository.save(newWallet);
   }
   public void deleteWallet(Wallet wallet) {
      walletRepository.delete(wallet);

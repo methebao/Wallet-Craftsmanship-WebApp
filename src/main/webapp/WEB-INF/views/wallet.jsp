@@ -11,30 +11,9 @@
                     <div class="card-body">
                         <h5 class="card-title">Account Balance</h5>
                         <h6 class="card-subtitle mb-2 text-muted">List wallet</h6>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <div class="wallet-name">
-                                    Wallet 1
-                                </div>
-                                <div class="wallet-balance">
-                                    500$
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="wallet-name">
-                                    Wallet 2
-                                </div>
-                                <div class="wallet-balance">
-                                    1500$
-                                </div>
-                            </li>
-                            <li class="list-group-item"><div class="wallet-name">
-                                Wallet 3
-                            </div>
-                                <div class="wallet-balance">
-                                    5000$
-                                </div>
-                            </li>
+                        <ul id="display-resources" class="list-group list-group-flush">
+
+
                         </ul>
                     </div>
                 </div>
@@ -53,10 +32,7 @@
                                 <label for="walletDescription">Description</label>
                                 <input type="text" class="form-control" id="walletDescription" placeholder="Wallet for shopping,...">
                             </div>
-                            <div class="form-group">
-                                <label for="walletDate">Date</label>
-                                <input type="text" class="form-control" id="walletDate" placeholder="23/09/1997">
-                            </div>
+
                             <div class="form-group">
                                 <label for="initAmount">Init amount</label>
                                 <input type="text" class="form-control" id="initAmount" placeholder="1000">

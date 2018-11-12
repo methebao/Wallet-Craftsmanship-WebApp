@@ -36,6 +36,10 @@ public class Wallet implements Serializable {
   @NotBlank
   private String name;
 
+  private String description;
+
+  private Long balance;
+
   @Column(nullable = false, updatable = false)
   @Temporal(TemporalType.TIMESTAMP)
   @CreatedDate
@@ -64,6 +68,14 @@ public class Wallet implements Serializable {
     this.name = name;
   }
 
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   public Date getCreatedAt() {
     return this.createdAt;
   }
@@ -80,4 +92,11 @@ public class Wallet implements Serializable {
     this.updatedAt = updatedAt;
   }
 
+  public Long getBalance() {
+    return balance;
+  }
+
+  public void setBalance(Long balance) {
+    this.balance = balance;
+  }
 }

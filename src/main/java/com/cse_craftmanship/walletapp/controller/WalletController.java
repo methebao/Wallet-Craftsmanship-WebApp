@@ -29,11 +29,15 @@ public class WalletController {
   // Create a new Wallet
   @PostMapping("/wallet")
   public Wallet createWallet(@Valid @RequestBody Wallet wallet) {
+
+
     return walletManager.saveWallet(wallet);
+
   }
   // Get a Single Wallet
   @GetMapping("/wallets/{id}")
   public Wallet getWalletById(@PathVariable(value = "id") Long walletId) {
+
     return walletManager.findById(walletId);
   }
   // Update a Wallet
@@ -42,8 +46,9 @@ public class WalletController {
                          @Valid @RequestBody Wallet walletDetails) {
 
     Wallet wallet = walletManager.findById(walletId);
-
     wallet.setName(walletDetails.getName());
+    wallet.setDescription(walletDetails.getDescription());
+    wallet.setBalance(walletDetails.getBalance());
 
     Wallet updatedWallet = walletManager.saveWallet(wallet);
     return updatedWallet;
