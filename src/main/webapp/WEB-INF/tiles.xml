@@ -1,0 +1,24 @@
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+
+<tiles-definitions>
+
+    <!-- Base Define -->
+    <definition name="base.definition" template="/WEB-INF/template/layouts/template.jsp">
+        <put-attribute name="header" value="/WEB-INF/template/base/_header.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/template/base/_footer.jsp" />
+    </definition>
+
+    <!-- Home Page -->
+    <definition name="home" extends="base.definition">
+        <put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+    </definition>
+    <!-- Wallet Page -->
+    <definition name="wallet" extends="base.definition">
+        <put-attribute name="body" value="/WEB-INF/views/wallet.jsp" />
+    </definition>
+
+</tiles-definitions>

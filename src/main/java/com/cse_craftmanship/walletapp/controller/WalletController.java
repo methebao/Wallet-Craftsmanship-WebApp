@@ -4,7 +4,6 @@ import com.cse_craftmanship.walletapp.model.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cse_craftmanship.walletapp.service.WalletManager;
-import org.springframework.boot.SpringApplication;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,13 +20,7 @@ public class WalletController {
   @Autowired
   WalletManager walletManager;
 
-  @RequestMapping(value = "/", method = RequestMethod.GET)
-  public ModelAndView renderHome() {
 
-    ModelAndView model = new ModelAndView("index");
-
-    return model;
-  }
   // Get All Wallets
   @GetMapping("/wallets")
   public List<Wallet> getAllNotes() {
