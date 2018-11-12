@@ -26,7 +26,7 @@
                         <form id="addWalletForm" action="/api/wallet">
                             <div class="form-group">
                                 <label for="walletName"> Name</label>
-                                <input type="text" name="name" class="form-control" id="walletName" placeholder="Shopping wallet,etc">
+                                <input type="text" name="name" class="form-control" id="walletName" placeholder="Shopping wallet,etc" required>
                             </div>
                             <div class="form-group">
                                 <label for="walletDescription">Description</label>
@@ -37,6 +37,9 @@
                                 <label for="initAmount">Init amount</label>
                                 <input type="text" name="balance" class="form-control" id="initAmount" placeholder="1000">
                                 <small id="initAmountHelp" class="form-text text-muted">Unit: $</small>
+                            </div>
+                            <div id="notification" class="alert d-none">
+
                             </div>
                             <button type="submit" class="btn btn-dark">Create</button>
                         </form>

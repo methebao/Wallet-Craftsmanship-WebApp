@@ -1,13 +1,55 @@
 $(document).ready(function() {
 
-    // GET Wallet List Onload
-    $("#retrieve-resources").ready(function() {
-        var displayResources = $("#display-resources");
+    function getWallets() {
+        $("#retrieve-resources").ready(function() {
+            var displayResources = $("#display-resources");
 
-        displayResources.text("Loading data from JSON source...");
+            displayResources.text("Loading data from JSON source...");
 
-        getWallets()
-    });
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api/wallets/",
+                success: function(result) {
+                    console.log(result);
+                    var output = "";
+                    for (var i in result) {
+                        output +=
+                            "<li class=\"list-group-item\">" +
+                            "<div class=\"wallet-name\">" +
+                            result[i].name +
+                            "</div>" +
+                            "<div class=\"wallet-balance\">" +
+                            result[i].balance +
+                            "</div>" +
+                            "</li>";
+                    }
+
+                    displayResources.html(output);
+                },
+                error: function(e) {
+                   console.log(e);
+                   pushNotification(false, e.responseText);
+
+                }
+            });
+        });
+    }
+    // GET Wallets on the first load.
+    getWallets();
+
+    function pushNotification(success, message) {
+        $("#notification").removeClass('d-none');
+        if (success === true) {
+            $("#notification").text(message);
+            $("#notification").addClass('alert-success');
+            $("#notification").removeClass('alert-danger');
+        } else {
+            $("#notification").text("Opps! You got error: " + message);
+            $("#notification").addClass('alert-danger');
+            $("#notification").removeClass('alert-success');
+        }
+    }
+
 
     // POST Create a wallet
     $("#addWalletForm").submit(function(e) {
@@ -29,7 +71,14 @@ $(document).ready(function() {
             data: JSON.stringify(dataWalletInputs), // serializes the form's elements.
             success: function(data)
             {
+                console.log(data);
                 getWallets(); // Reload wallets
+                pushNotification(true, "Successfully created a new Wallet!!");
+
+            },
+            error: function(e) {
+                console.log(e);
+                pushNotification(false, e.responseText);
 
             }
         });
@@ -37,29 +86,7 @@ $(document).ready(function() {
         e.preventDefault(); // avoid to execute the actual submit of the form.
     });
 
-    
 
-    function getWallets() {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/api/wallets/",
-            success: function(result) {
-                console.log(result);
-                var output = "";
-                for (var i in result) {
-                    output +=
-                        "<li class=\"list-group-item\">" +
-                        "<div class=\"wallet-name\">" +
-                        result[i].name +
-                        "</div>" +
-                        "<div class=\"wallet-balance\">" +
-                        result[i].balance +
-                        "</div>" +
-                        "</li>";
-                }
 
-                displayResources.html(output);
-            }
-        });
-    }
+
 });
