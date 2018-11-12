@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cse_craftmanship.walletapp.service.WalletManager;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,10 +27,10 @@ public class WalletController {
   public List<Wallet> getAllNotes() {
     return walletManager.getAll();
   }
-  // Create a new Wallet
-  @PostMapping("/wallet")
-  public Wallet createWallet(@Valid @RequestBody Wallet wallet) {
 
+  // Create a new Wallet
+  @PostMapping(value = "/wallet")
+  public Wallet createWallet(@Valid @RequestBody Wallet wallet) {
 
     return walletManager.saveWallet(wallet);
 

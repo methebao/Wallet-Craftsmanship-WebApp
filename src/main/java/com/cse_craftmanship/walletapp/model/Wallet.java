@@ -33,7 +33,6 @@ public class Wallet implements Serializable {
   @Column(name = "id")
   private long id;
 
-  @NotBlank
   private String name;
 
   private String description;

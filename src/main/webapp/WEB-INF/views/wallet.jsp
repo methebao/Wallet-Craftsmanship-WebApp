@@ -23,19 +23,19 @@
                     <div class="card-body">
                         <h5 class="card-title">Create Wallet</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Add a new wallet</h6>
-                        <form>
+                        <form id="addWalletForm" action="/api/wallet">
                             <div class="form-group">
                                 <label for="walletName"> Name</label>
-                                <input type="text" class="form-control" id="walletName" placeholder="Shopping wallet,etc">
+                                <input type="text" name="name" class="form-control" id="walletName" placeholder="Shopping wallet,etc">
                             </div>
                             <div class="form-group">
                                 <label for="walletDescription">Description</label>
-                                <input type="text" class="form-control" id="walletDescription" placeholder="Wallet for shopping,...">
+                                <input type="text" name="description" class="form-control" id="walletDescription" placeholder="Wallet for shopping,...">
                             </div>
 
                             <div class="form-group">
                                 <label for="initAmount">Init amount</label>
-                                <input type="text" class="form-control" id="initAmount" placeholder="1000">
+                                <input type="text" name="balance" class="form-control" id="initAmount" placeholder="1000">
                                 <small id="initAmountHelp" class="form-text text-muted">Unit: $</small>
                             </div>
                             <button type="submit" class="btn btn-dark">Create</button>
