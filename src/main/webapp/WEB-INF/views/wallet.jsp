@@ -11,7 +11,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-5">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Account Balance</h5>
+                            <h5 class="card-title">ACCOUNT BALANCE</h5>
                             <h6 class="card-subtitle mb-2 text-muted">List wallet</h6>
                             <ul id="display-resources" class="list-group list-group-flush">
 
@@ -23,7 +23,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-7">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Create Wallet</h5>
+                            <h5 class="card-title">CREATE WALLET</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Add a new wallet</h6>
                             <form id="addWalletForm" action="/api/wallet">
                                 <div class="form-group">

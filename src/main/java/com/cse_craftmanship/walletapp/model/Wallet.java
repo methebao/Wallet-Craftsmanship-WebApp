@@ -1,17 +1,12 @@
 package com.cse_craftmanship.walletapp.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -48,6 +43,19 @@ public class Wallet implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   @LastModifiedDate
   private Date updatedAt;
+
+
+  @ManyToMany(cascade = {
+          CascadeType.PERSIST,
+          CascadeType.MERGE
+  })
+  @JoinTable(name = "wallet_card",
+          joinColumns = @JoinColumn(name = "wallet_id"),
+          inverseJoinColumns = @JoinColumn(name = "card_id")
+  )
+  private List<CreditCard> cards = new ArrayList<>();
+
+
 
   // Getters and Setters ...
 
@@ -98,4 +106,7 @@ public class Wallet implements Serializable {
   public void setBalance(Long balance) {
     this.balance = balance;
   }
+
+
+
 }

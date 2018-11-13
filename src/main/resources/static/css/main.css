@@ -1,3 +1,4 @@
+/*BASE SETUPS*/
 *,
 *::after,
 *::before {
@@ -12,6 +13,13 @@ body {
 
 section {
     padding: 40px;
+}
+
+
+/*REUSEABLE COMPONENTS*/
+.card {
+    width: 80%;
+    margin: 0 auto;
 }
 
 /*WALLET SECTION*/

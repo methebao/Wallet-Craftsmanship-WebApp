@@ -16,6 +16,10 @@
     <definition name="home" extends="base.definition">
         <put-attribute name="body" value="/WEB-INF/views/home.jsp" />
     </definition>
+    <!-- Topup Page -->
+    <definition name="topup" extends="base.definition">
+        <put-attribute name="body" value="/WEB-INF/views/topup.jsp" />
+    </definition>
     <!-- Wallet Page -->
     <definition name="wallet" extends="base.definition">
         <put-attribute name="body" value="/WEB-INF/views/wallet.jsp" />

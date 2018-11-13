@@ -10,12 +10,13 @@
                     <a class="nav-link" href="#">SUMMARY <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">TOPUP</a>
-                </li>  <li class="nav-item">
-                <a class="nav-link" href="#">TRANSFER</a>
-            </li>  <li class="nav-item">
+                    <a class="nav-link" href="/topup">TOPUP</a>
+                </li>
+                <li class="nav-item">
                 <a class="nav-link" href="/wallet">WALLET</a>
-            </li>  <li class="nav-item">
+
+            </li>
+                <li class="nav-item">
                 <a class="nav-link" href="#">Bill payment</a>
             </li>
 

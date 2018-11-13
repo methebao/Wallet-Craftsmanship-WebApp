@@ -12,7 +12,11 @@ public class HomeController {
     ModelAndView modelAndView = new ModelAndView("home");
     return modelAndView;
   }
-
+  @RequestMapping(value="/topup")
+  public ModelAndView showViewTopup() {
+    ModelAndView modelAndView = new ModelAndView("topup");
+    return modelAndView;
+  }
   @RequestMapping(value="/wallet")
   public ModelAndView showViewWallet() {
     ModelAndView modelAndView = new ModelAndView("wallet");
