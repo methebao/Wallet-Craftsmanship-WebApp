@@ -5,7 +5,7 @@
 
 <main>
 
-    <section class="section-wallet">
+    <section class="section-summary">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-5">
@@ -23,12 +23,11 @@
                 <div class="col-sm-12 col-md-12 col-lg-7">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">CREATE WALLET</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Add a new wallet</h6>
-                            <form id="addWalletForm" action="/api/wallet">
-                                <div class="form-group">
-                                         <label for="walletName"> Name</label>
-                                    <input type="text" name="name" class="form-control" id="walletName" placeholder="Shopping wallet,etc" required>
+                            <h5 class="card-title">BANK & C</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Add a new wallet</h6>
+                                    <%--<form id="addWalletForm" action="/api/wallet">--%>
+                                <div class="cards">
+                                    <button class="cards-btn">AMERICAN EXPRESS</button>
                                 </div>
                                 <div class="form-group">
                                     <label for="walletDescription">Description</label>
