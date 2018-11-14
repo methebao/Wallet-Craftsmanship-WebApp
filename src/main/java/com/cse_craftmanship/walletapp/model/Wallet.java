@@ -107,6 +107,12 @@ public class Wallet implements Serializable {
     this.balance = balance;
   }
 
+  public List<CreditCard> getCards() {
+    return cards;
+  }
 
+  public void setCards(List<CreditCard> cards) {
+    this.cards = cards;
+  }
 
 }
