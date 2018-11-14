@@ -1,5 +1,6 @@
 package com.cse_craftmanship.walletapp.controller;
 
+import com.cse_craftmanship.walletapp.model.CreditCard;
 import com.cse_craftmanship.walletapp.model.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -62,5 +63,12 @@ public class WalletController {
     walletManager.deleteWallet(wallet);
 
     return ResponseEntity.ok().build();
+  }
+
+  //Get List Cards by Wallet Id
+  @GetMapping("/cardsByWallet/{id}")
+  public List<CreditCard> getCardByWalletId(@PathVariable(value = "id") Long walletId) {
+
+    return walletManager.getCardByWalletId(walletId);
   }
 }
