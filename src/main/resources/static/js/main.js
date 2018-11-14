@@ -1,41 +1,68 @@
 $(document).ready(function() {
 
-    function getWallets() {
-        $("#retrieve-resources").ready(function() {
-            var displayResources = $("#display-resources");
 
-            displayResources.text("Loading data from JSON source...");
+    function getWalletsTemplate(wallet, template) {
+        var output = "";
+        switch (template) {
+            case "list" : output =
+                "<li class=\"list-group-item\">" +
+                "<div class=\"wallet-name\">" +
+                wallet.name +
+                "</div>" +
+                "<div class=\"wallet-balance\">" +
+                wallet.balance +
+                "</div>" +
+                "</li>";
+                break;
+            case "dropdown":
+                output =
+                    "<option>" +
+                    wallet.name +
+                    "</option>" ;
+                break;
+            default: break;
+        }
 
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:8080/api/wallets/",
-                success: function(result) {
-                    console.log(result);
-                    var output = "";
-                    for (var i in result) {
-                        output +=
-                            "<li class=\"list-group-item\">" +
-                            "<div class=\"wallet-name\">" +
-                            result[i].name +
-                            "</div>" +
-                            "<div class=\"wallet-balance\">" +
-                            result[i].balance +
-                            "</div>" +
-                            "</li>";
-                    }
-
-                    displayResources.html(output);
-                },
-                error: function(e) {
-                   console.log(e);
-                   pushNotification(false, e.responseText);
-
-                }
-            });
-        });
+        return output
     }
-    // GET Wallets on the first load.
-    getWallets();
+    function getWallets(template) {
+        var displayResources = $("#display-resources");
+
+        displayResources.text("Loading data from JSON source...");
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/wallets/",
+            success: function(result) {
+                console.log(result);
+                var output = "";
+                for (var i in result) {
+                    output += getWalletsTemplate(result[i], template)
+                }
+
+                displayResources.html(output);
+            },
+            error: function(e) {
+                console.log(e);
+                pushNotification(false, e.responseText);
+
+            }
+        });
+
+    }
+    function fetch() {
+        var pathname = window.location.pathname;
+        if (pathname === "/wallet") {
+            getWallets("list")
+        } else if (pathname === "/topup") {
+            getWallets("dropdown")
+        }
+
+    }
+
+
+    fetch();
+
 
     function pushNotification(success, message) {
         $("#notification").removeClass('d-none');
@@ -72,7 +99,7 @@ $(document).ready(function() {
             success: function(data)
             {
                 console.log(data);
-                getWallets(); // Reload wallets
+                getWallets("list"); // Reload wallets
                 pushNotification(true, "Successfully created a new Wallet!!");
 
             },

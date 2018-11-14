@@ -27,11 +27,10 @@
                                 <input type="text" name="cvv" class="form-control" id="cvv"  required>
                             </div>
                             <div class="form-group">
-                                <label for="wallets">Wallet</label>
-                                <select class="form-control" id="wallets">
-                                    <option>Shopping</option>
-                                    <option>Working</option>
-                                    <option>Bills</option>
+                                <label for="display-resources">Wallet</label>
+                                <select id="display-resources"  class="form-control" id="wallets">
+
+
                                 </select>
                             </div>
                             <div id="notification" class="alert d-none">
