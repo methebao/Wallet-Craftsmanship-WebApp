@@ -11,5 +11,6 @@ public interface WalletManager {
   public Wallet saveWallet(Wallet newWallet);
   public void deleteWallet(Wallet wallet);
   public Wallet findById(Long walletId);
-  public  List<CreditCard> getCardByWalletId(Long walletId);
+  public List<CreditCard> getCardsByWalletId(Long walletId);
+
 }

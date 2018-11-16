@@ -69,6 +69,6 @@ public class WalletController {
   @GetMapping("/cardsByWallet/{id}")
   public List<CreditCard> getCardByWalletId(@PathVariable(value = "id") Long walletId) {
 
-    return walletManager.getCardByWalletId(walletId);
+    return walletManager.getCardsByWalletId(walletId);
   }
 }
