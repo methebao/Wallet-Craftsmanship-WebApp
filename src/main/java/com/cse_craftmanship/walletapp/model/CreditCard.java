@@ -44,11 +44,6 @@ public class CreditCard implements Serializable {
   private Date updatedAt;
 
 
-  @ManyToMany(mappedBy = "cards")
-  private List<Wallet> wallets = new ArrayList<>();
-
-
-
   // Getter & Setters
 
   public long getId() {

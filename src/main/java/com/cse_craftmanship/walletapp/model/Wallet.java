@@ -44,15 +44,11 @@ public class Wallet implements Serializable {
   @LastModifiedDate
   private Date updatedAt;
 
-
-  @ManyToMany(cascade = {
-          CascadeType.PERSIST,
-          CascadeType.MERGE
-  })
-  @JoinTable(name = "wallet_card",
-          joinColumns = @JoinColumn(name = "wallet_id"),
-          inverseJoinColumns = @JoinColumn(name = "card_id")
+  @OneToMany(
+          cascade = CascadeType.ALL,
+          orphanRemoval = true
   )
+  @JoinColumn(name = "card_id")
   private List<CreditCard> cards = new ArrayList<>();
 
 
