@@ -22,15 +22,15 @@ public class HomeController {
   }
   @RequestMapping(value="/topup")
   public ModelAndView showViewTopup() {
-    ModelAndView modelAndView = new ModelAndView("topup");
-    return modelAndView;
+    ModelAndView topupModelView = new ModelAndView("topup");
+    topupModelView.addObject("wallets", walletManager.getAll());
+
+    return topupModelView;
   }
   @RequestMapping(value="/wallet")
   public ModelAndView showViewWallet() {
-
-    List<Wallet> wallets = walletManager.getAll();
     ModelAndView walletModelView = new ModelAndView("wallet");
-    walletModelView.addObject("wallets", wallets);
+    walletModelView.addObject("wallets", walletManager.getAll());
 
     return walletModelView;
   }

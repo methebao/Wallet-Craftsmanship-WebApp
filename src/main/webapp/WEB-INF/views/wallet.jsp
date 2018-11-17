@@ -17,14 +17,7 @@
                             <h6 class="card-subtitle mb-2 text-muted">List wallet</h6>
                             <ul id="display-resources" class="list-group list-group-flush">
                                 <c:forEach items="${wallets}" var="wallet">
-                                    <%--"<li class=\"list-group-item\">" +--%>
-                                    <%--"<div class=\"wallet-name\">" +--%>
-                                    <%--wallet.name +--%>
-                                    <%--"</div>" +--%>
-                                    <%--"<div class=\"wallet-balance\">" +--%>
-                                    <%--wallet.balance +--%>
-                                    <%--"</div>" +--%>
-                                    <%--"</li>";--%>
+                                  
                                     <li class="list-group-item">
                                         <div class="wallet-name">
                                             ${wallet.name}

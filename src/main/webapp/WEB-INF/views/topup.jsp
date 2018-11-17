@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -29,7 +31,9 @@
                             <div class="form-group">
                                 <label for="display-resources">Wallet</label>
                                 <select id="display-resources"  class="form-control" id="wallets">
-
+                                    <c:forEach items="${wallets}" var="wallet">
+                                        <select>${wallet.name}</select>
+                                    </c:forEach>
 
                                 </select>
                             </div>

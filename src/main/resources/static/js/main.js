@@ -50,18 +50,7 @@ $(document).ready(function() {
         });
 
     }
-    function fetch() {
-        var pathname = window.location.pathname;
-        if (pathname === "/wallet") {
-            getWallets("list")
-        } else if (pathname === "/topup") {
-            getWallets("dropdown")
-        }
 
-    }
-
-
-    // fetch();
 
 
     function pushNotification(success, message) {
