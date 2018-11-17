@@ -61,7 +61,7 @@ $(document).ready(function() {
     }
 
 
-    fetch();
+    // fetch();
 
 
     function pushNotification(success, message) {
@@ -76,7 +76,10 @@ $(document).ready(function() {
             $("#notification").removeClass('alert-success');
         }
     }
-
+    function addWalletAJAX(wallet) {
+        var displayResources = $("#display-resources");
+        displayResources.append(getWalletsTemplate(wallet, "list"))
+    }
 
     // POST Create a wallet
     $("#addWalletForm").submit(function(e) {
@@ -99,7 +102,7 @@ $(document).ready(function() {
             success: function(data)
             {
                 console.log(data);
-                getWallets("list"); // Reload wallets
+                addWalletAJAX(dataWalletInputs); // Add wallet to wallets list view
                 pushNotification(true, "Successfully created a new Wallet!!");
 
             },
