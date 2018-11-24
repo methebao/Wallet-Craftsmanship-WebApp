@@ -102,5 +102,4 @@ public class CreditCard implements Serializable {
     this.updatedAt = updatedAt;
   }
 
-
 }
