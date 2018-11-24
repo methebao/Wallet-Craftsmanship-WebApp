@@ -3,6 +3,7 @@ package com.cse_craftmanship.walletapp.service;
 import com.cse_craftmanship.walletapp.model.CreditCard;
 import com.cse_craftmanship.walletapp.model.Wallet;
 import com.cse_craftmanship.walletapp.repository.WalletRepository;
+import com.cse_craftmanship.walletapp.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +32,4 @@ public class WalletManagerImpl implements WalletManager {
     Wallet wallet = walletRepository.getOne(walletId);
     return wallet.getCards();
   }
-
 }
