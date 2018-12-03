@@ -12,10 +12,13 @@
             href="webjars/bootstrap/4.1.3/css/bootstrap.min.css"
             rel="stylesheet"
     />
+    <link href="css/date-picker.css" rel="stylesheet" type="text/css">
+
     <link
             href="css/main.css"
             rel="stylesheet"
     />
+
 </head>
 
 <body>
@@ -29,6 +32,8 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script src="webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="js/date-picker.js"></script>
+
     <script src="js/main.js"></script>
 </body>
 </html>

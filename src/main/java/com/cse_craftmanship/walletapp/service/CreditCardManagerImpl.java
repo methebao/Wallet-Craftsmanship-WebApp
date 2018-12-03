@@ -6,25 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class CreditCardManagerImpl implements CreditCardManager{
+public class CreditCardManagerImpl implements CreditCardManager {
     @Autowired
     CreditCardRepository creditCardRepository;
 
-    public List<CreditCard> getAllCreditCards() {
-       return creditCardRepository.findAll();
+    public List<CreditCard> getAllCreditCardsByWalletId(Long walletId) {
+
+        return creditCardRepository.findByWalletId(walletId);
     }
 
-    public CreditCard createCreditCard(CreditCard creditCard) {
+    public CreditCard saveCreditCard(CreditCard creditCard) {
         return creditCardRepository.save(creditCard);
     }
 
     public void deleteCreditCard(CreditCard creditCard) {
-        creditCardRepository.delete(creditCard);
     }
 
-    public CreditCard  findById(Long creditId){
-        return creditCardRepository.getOne(creditId);
+    public Optional<CreditCard> findById(Long creditcardId) {
+        return creditCardRepository.findById(creditcardId);
     }
+
+    public boolean isExists(Long creditcardId) {
+        return creditCardRepository.existsById(creditcardId);
+    }
+
 }

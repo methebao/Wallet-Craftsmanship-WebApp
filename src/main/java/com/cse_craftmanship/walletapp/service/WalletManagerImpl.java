@@ -3,11 +3,11 @@ package com.cse_craftmanship.walletapp.service;
 import com.cse_craftmanship.walletapp.model.CreditCard;
 import com.cse_craftmanship.walletapp.model.Wallet;
 import com.cse_craftmanship.walletapp.repository.WalletRepository;
-import com.cse_craftmanship.walletapp.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WalletManagerImpl implements WalletManager {
@@ -25,11 +25,9 @@ public class WalletManagerImpl implements WalletManager {
   public void deleteWallet(Wallet wallet) {
      walletRepository.delete(wallet);
   }
-  public Wallet findById(Long walletId) {
-    return walletRepository.getOne(walletId);
+  public Optional<Wallet> findById(Long walletId) {
+    return walletRepository.findById(walletId);
   }
-  public List<CreditCard> getCardsByWalletId(Long walletId){
-    Wallet wallet = walletRepository.getOne(walletId);
-    return wallet.getCards();
-  }
+  public boolean isExists(Long walletId) { return walletRepository.existsById(walletId); }
+
 }

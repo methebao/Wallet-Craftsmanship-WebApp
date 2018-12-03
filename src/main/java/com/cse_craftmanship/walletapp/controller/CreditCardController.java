@@ -1,10 +1,11 @@
 package com.cse_craftmanship.walletapp.controller;
 
+import com.cse_craftmanship.walletapp.exception.NotFoundException;
 import com.cse_craftmanship.walletapp.model.CreditCard;
 import com.cse_craftmanship.walletapp.service.CreditCardManager;
+import com.cse_craftmanship.walletapp.service.WalletManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -12,50 +13,62 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-
 public class CreditCardController {
-    @Autowired
-    CreditCardManager creditCardManager;
+  @Autowired
+  CreditCardManager creditCardManager;
+  @Autowired
+  WalletManager walletManager;
 
-    // Get All CreditCards
-    @GetMapping("/creditcards")
-    public List<CreditCard> getAllNotes() {
-        return creditCardManager.getAllCreditCards();
+  // Get All CreditCards
+  @GetMapping("/wallets/{walletId}/credit-cards")
+  public List<CreditCard> getAllCreditCardsByWalletId(@PathVariable(value = "walletId") Long walletId) {
+    if (!walletManager.isExists(walletId)) {
+      throw new NotFoundException("Walet is not found!");
+    }
+    return creditCardManager.getAllCreditCardsByWalletId(walletId);
+  }
+
+  // Create a new Credit
+  @PostMapping(value = "/wallets/{walletId}/credit-card")
+  public CreditCard createCreditCard(@PathVariable(value = "walletId") Long walletId,
+      @Valid @RequestBody CreditCard creditCard) {
+    return walletManager.findById(walletId).map(wallet -> {
+      creditCard.setWallet(wallet);
+      return creditCardManager.saveCreditCard(creditCard);
+    }).orElseThrow(() -> new NotFoundException("Wallet is not found "));
+  }
+
+  // // Get a Single Credit
+  // @GetMapping("/credit/{id}")
+  // public CreditCard getCreditById(@PathVariable(value = "id") Long
+  // creditCardId) {
+  //
+  // return creditCardManager.findById(creditCardId);
+  // }
+  // Update a Credit
+  @PutMapping("/wallets/{walletId}/credit-cards/{creditcardId}")
+  public CreditCard updateCreditCard(@PathVariable(value = "walletid") Long walletId,
+      @PathVariable(value = "creditcardId") Long creditCardId, @Valid @RequestBody CreditCard creditCardUpdated) {
+    if (!walletManager.isExists(walletId)) {
+      throw new NotFoundException("Walet is not found!");
     }
 
-    // Create a new Credit
-    @PostMapping(value = "/topup")
-    public CreditCard createCreditCard(@Valid @RequestBody CreditCard creditCard) {
+    return creditCardManager.findById(creditCardId).map(creditCard -> {
+      creditCard.setCardNo(creditCardUpdated.getCardNo());
+      creditCard.setCvv(creditCardUpdated.getCvv());
+      return creditCardManager.saveCreditCard(creditCard);
+    }).orElseThrow(() -> new NotFoundException("Assignment not found!"));
+  }
 
-        return creditCardManager.createCreditCard(creditCard);
-
+  // Delete a Credit
+  @DeleteMapping("/wallets/{walletId}/credit-cards/{creditcardId}")
+  public String deleteCreditCard(@PathVariable Long creditCardId, @PathVariable Long walletId) {
+    if (!walletManager.isExists(walletId)) {
+      throw new NotFoundException("Walet is not found!");
     }
-    // Get a Single Credit
-    @GetMapping("/credit/{id}")
-    public CreditCard getCreditById(@PathVariable(value = "id") Long creditCardId) {
-
-        return creditCardManager.findById(creditCardId);
-    }
-    // Update a Credit
-    @PutMapping("/credits/{id}")
-    public CreditCard updateCreditCard(@PathVariable(value = "id") Long creditCardId,
-                               @Valid @RequestBody CreditCard CreditCardDetails) {
-
-        CreditCard creditCard = creditCardManager.findById(creditCardId);
-        creditCard.setName(CreditCardDetails.getName());
-        creditCard.setExpiredDate(CreditCardDetails.getExpiredDate());
-        creditCard.setCardNo(CreditCardDetails.getCardNo());
-
-        CreditCard updateCreditCard = creditCardManager.createCreditCard(creditCard);
-        return updateCreditCard;
-    }
-    // Delete a Credit
-    @DeleteMapping("/credits/{id}")
-    public ResponseEntity<?> deleteCreditCard(@PathVariable(value = "id") Long creditCardId) {
-        CreditCard creditCard = creditCardManager.findById(creditCardId);
-
-        creditCardManager.deleteCreditCard(creditCard);
-
-        return ResponseEntity.ok().build();
-    }
+    return creditCardManager.findById(creditCardId).map(creditCard -> {
+      creditCardManager.deleteCreditCard(creditCard);
+      return "Deleted Successfully!";
+    }).orElseThrow(() -> new NotFoundException("Contact not found!"));
+  }
 }

@@ -10,7 +10,5 @@ import java.util.List;
 public interface WalletRepository extends JpaRepository<Wallet, Long> {
 
   public List<Wallet> findAll();
-//  public List<CreditCard> getCardsByWalletId(Long walletId);
-  public Wallet getOne(Long walletId);
 }
 

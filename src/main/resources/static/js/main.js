@@ -1,111 +1,171 @@
 $(document).ready(function() {
+  function getWalletsTemplate(wallet, template) {
+    var output = "";
+    switch (template) {
+      case "list":
+        output =
+          '<li class="list-group-item">' +
+          '<div class="wallet-name">' +
+          wallet.name +
+          "</div>" +
+          '<div class="wallet-balance">' +
+          wallet.balance +
+          "</div>" +
+          "</li>";
+        break;
+      case "dropdown":
+        output = "<option>" + wallet.name + "</option>";
+        break;
+      default:
+        break;
+    }
 
+    return output;
+  }
+  function getWallets(template) {
+    var displayResources = $("#display-resources");
 
-    function getWalletsTemplate(wallet, template) {
+    displayResources.text("Loading data from JSON source...");
+
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:8080/api/wallets/",
+      success: function(result) {
+        console.log(result);
         var output = "";
-        switch (template) {
-            case "list" : output =
-                "<li class=\"list-group-item\">" +
-                "<div class=\"wallet-name\">" +
-                wallet.name +
-                "</div>" +
-                "<div class=\"wallet-balance\">" +
-                wallet.balance +
-                "</div>" +
-                "</li>";
-                break;
-            case "dropdown":
-                output =
-                    "<option>" +
-                    wallet.name +
-                    "</option>" ;
-                break;
-            default: break;
+        for (var i in result) {
+          output += getWalletsTemplate(result[i], template);
         }
 
-        return output
+        displayResources.html(output);
+      },
+      error: function(e) {
+        console.log(e);
+        pushNotification(false, e.responseText);
+      }
+    });
+  }
+
+  function pushNotification(success, message) {
+    $("#notification").removeClass("d-none");
+    if (success === true) {
+      $("#notification").text(message);
+      $("#notification").addClass("alert-success");
+      $("#notification").removeClass("alert-danger");
+    } else {
+      $("#notification").text("Opps! You got error: " + message);
+      $("#notification").addClass("alert-danger");
+      $("#notification").removeClass("alert-success");
     }
-    function getWallets(template) {
-        var displayResources = $("#display-resources");
+  }
+  function addWalletAJAX(wallet) {
+    var displayResources = $("#display-resources");
+    displayResources.append(getWalletsTemplate(wallet, "list"));
+  }
 
-        displayResources.text("Loading data from JSON source...");
+  // POST Create a wallet
+  $("#addWalletForm").submit(function(e) {
+    var dataWalletInputs = {};
+    dataWalletInputs.name = $("#walletName").val();
+    dataWalletInputs.description = $("#walletDescription").val();
+    dataWalletInputs.balance = $("#initAmount").val();
 
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/api/wallets/",
-            success: function(result) {
-                console.log(result);
-                var output = "";
-                for (var i in result) {
-                    output += getWalletsTemplate(result[i], template)
-                }
+    var form = $(this);
+    var url = "http://localhost:8080" + form.attr("action");
 
-                displayResources.html(output);
-            },
-            error: function(e) {
-                console.log(e);
-                pushNotification(false, e.responseText);
-
-            }
-        });
-
-    }
-
-
-
-    function pushNotification(success, message) {
-        $("#notification").removeClass('d-none');
-        if (success === true) {
-            $("#notification").text(message);
-            $("#notification").addClass('alert-success');
-            $("#notification").removeClass('alert-danger');
-        } else {
-            $("#notification").text("Opps! You got error: " + message);
-            $("#notification").addClass('alert-danger');
-            $("#notification").removeClass('alert-success');
-        }
-    }
-    function addWalletAJAX(wallet) {
-        var displayResources = $("#display-resources");
-        displayResources.append(getWalletsTemplate(wallet, "list"))
-    }
-
-    // POST Create a wallet
-    $("#addWalletForm").submit(function(e) {
-
-        var dataWalletInputs = {};
-        dataWalletInputs.name = $("#walletName").val();
-        dataWalletInputs.description = $("#walletDescription").val();
-        dataWalletInputs.balance = $("#initAmount").val();
-
-
-        var form = $(this);
-        var url = "http://localhost:8080" + form.attr('action');
-
-        $.post({
-
-            url: url,
-            contentType: "application/json; charset=utf-8",
-            datatype: 'json',
-            data: JSON.stringify(dataWalletInputs), // serializes the form's elements.
-            success: function(data)
-            {
-                console.log(data);
-                addWalletAJAX(dataWalletInputs); // Add wallet to wallets list view
-                pushNotification(true, "Successfully created a new Wallet!!");
-
-            },
-            error: function(e) {
-                console.log(e);
-                pushNotification(false, e.responseText);
-
-            }
-        });
-
-        e.preventDefault(); // avoid to execute the actual submit of the form.
+    $.post({
+      url: url,
+      contentType: "application/json; charset=utf-8",
+      datatype: "json",
+      data: JSON.stringify(dataWalletInputs), // serializes the form's elements.
+      success: function(data) {
+        console.log(data);
+        addWalletAJAX(dataWalletInputs); // Add wallet to wallets list view
+        pushNotification(true, "Successfully created a new Wallet!!");
+      },
+      error: function(e) {
+        console.log(e);
+        pushNotification(false, e.responseText);
+      }
     });
 
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+  });
+  // POST Create a credit card
+  $("#addCardForm").submit(function(e) {
+    var dataCardInputs = {};
+    dataCardInputs.cardNo = $("#cardNo").val();
+    dataCardInputs.expiredDate = $(".datepicker-here")
+      .datepicker("selectedDates")
+      .val();
+    dataCardInputs.cvv = $("#cvv").val();
 
+    var selectedWalletId = $("#walletSelect option:selected").val();
+    var addCardToWalletEndpoint =
+      "/wallets/" + selectedWalletId + "/credit-card";
 
+    var url = "http://localhost:8080/api" + addCardToWalletEndpoint;
+    debugger;
+    $.post({
+      url: url,
+      contentType: "application/json; charset=utf-8",
+      datatype: "json",
+      data: JSON.stringify(dataCardInputs), // serializes the form's elements.
+      success: function(data) {
+        console.log(data);
+        pushNotification(true, "Successfully created a new Wallet!!");
+      },
+      error: function(e) {
+        console.log(e);
+        pushNotification(false, e.responseText);
+      }
+    });
 
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+  });
+
+  // Wallet selector
+  // Select wallet to switch credit card data
+  function getCardThumbnails(card) {
+    var cardThumbnailURL = "imgs/credit-card.png";
+    output = "<img src=" + cardThumbnailURL + ' class="credit-card-thumbnail">';
+    return output;
+  }
+  $(".wallet-item").click(function(e) {
+    e.preventDefault();
+    var walletId = $(this).attr("href");
+    getCreditcardsByWalletId(
+      walletId,
+      function(data) {
+        var output = "";
+        var displayCardsThumbnail = $("#display-cards-thumbnail");
+
+        if ($.isEmptyObject(data)) {
+          output += '<div class="alert alert-light">No cards available.</div>';
+          displayCardsThumbnail.html(output);
+        }
+        data.forEach(element => {
+          output += getCardThumbnails(element);
+        });
+
+        displayCardsThumbnail.html(output);
+      },
+      function(errorMessage) {
+        pushNotification(false, errorMessage);
+      }
+    );
+  });
+  // Get creditcards by wallet id
+  function getCreditcardsByWalletId(walletId, result, gotError) {
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:8080/api/wallets/" + walletId + "/credit-cards",
+      success: function(data) {
+        result(data);
+      },
+      error: function(e) {
+        gotError(e.responseText);
+      }
+    });
+  }
 });

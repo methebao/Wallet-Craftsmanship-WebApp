@@ -7,8 +7,12 @@ import javax.persistence.*;
 
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -25,10 +29,9 @@ public class CreditCard implements Serializable {
   @Column(name = "id")
   private long id;
 
-  private String name;
-
   private Long cardNo;
 
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "mm-yy")
   private Date expiredDate;
 
   private Integer cvv;
@@ -43,6 +46,10 @@ public class CreditCard implements Serializable {
   @LastModifiedDate
   private Date updatedAt;
 
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "wallet_id", nullable = false)
+  @JsonIgnore
+  private Wallet wallet;
 
   // Getter & Setters
 
@@ -52,14 +59,6 @@ public class CreditCard implements Serializable {
 
   public void setId(long id) {
     this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public Long getCardNo() {
@@ -102,5 +101,12 @@ public class CreditCard implements Serializable {
     this.updatedAt = updatedAt;
   }
 
+  public Wallet getWallet() {
+    return wallet;
+  }
+
+  public void setWallet(Wallet wallet) {
+    this.wallet = wallet;
+  }
 
 }

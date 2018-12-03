@@ -1,6 +1,5 @@
 package com.cse_craftmanship.walletapp.controller;
 
-import com.cse_craftmanship.walletapp.model.Wallet;
 import com.cse_craftmanship.walletapp.service.WalletManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,19 +14,23 @@ public class HomeController {
   @Autowired
   WalletManager walletManager;
 
-  @RequestMapping(value="/")
+  @RequestMapping(value = "/")
   public ModelAndView showViewHome() {
-    ModelAndView modelAndView = new ModelAndView("home");
-    return modelAndView;
+    ModelAndView homeModelView = new ModelAndView("home");
+    homeModelView.addObject("wallets", walletManager.getAll());
+
+    return homeModelView;
   }
-  @RequestMapping(value="/topup")
+
+  @RequestMapping(value = "/topup")
   public ModelAndView showViewTopup() {
     ModelAndView topupModelView = new ModelAndView("topup");
     topupModelView.addObject("wallets", walletManager.getAll());
 
     return topupModelView;
   }
-  @RequestMapping(value="/wallet")
+
+  @RequestMapping(value = "/wallet")
   public ModelAndView showViewWallet() {
     ModelAndView walletModelView = new ModelAndView("wallet");
     walletModelView.addObject("wallets", walletManager.getAll());

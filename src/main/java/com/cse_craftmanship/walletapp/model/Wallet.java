@@ -44,14 +44,15 @@ public class Wallet implements Serializable {
   @LastModifiedDate
   private Date updatedAt;
 
-  @OneToMany(
-          cascade = CascadeType.ALL,
-          orphanRemoval = true
-  )
-  @JoinColumn(name = "card_id")
-  private List<CreditCard> cards = new ArrayList<>();
+
+  public static long getSerialVersionUID() {
+    return serialVersionUID;
+  }
 
 
+
+  @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Set<CreditCard> cards;
 
   // Getters and Setters ...
 
@@ -103,12 +104,13 @@ public class Wallet implements Serializable {
     this.balance = balance;
   }
 
-  public List<CreditCard> getCards() {
+  public Set<CreditCard> getCards() {
     return cards;
   }
 
-  public void setCards(List<CreditCard> cards) {
+  public void setCards(Set<CreditCard> cards) {
     this.cards = cards;
   }
+
 
 }
