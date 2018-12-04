@@ -29,8 +29,8 @@ public class CreditCardManagerImpl implements CreditCardManager {
         return creditCardRepository.findById(creditcardId);
     }
 
-    public boolean isExists(Long creditcardId) {
-        return creditCardRepository.existsById(creditcardId);
+    public boolean isExists(Long creditCardId) {
+        return creditCardRepository.existsById(creditCardId);
     }
 
 }

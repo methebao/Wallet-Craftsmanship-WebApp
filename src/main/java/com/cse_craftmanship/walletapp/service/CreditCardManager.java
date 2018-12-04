@@ -12,7 +12,7 @@ public interface CreditCardManager {
 
     public void deleteCreditCard(CreditCard creditCard);
 
-    public Optional<CreditCard> findById(Long walletId);
+    public Optional<CreditCard> findById(Long creditCardId);
 
-    public boolean isExists(Long creditcardId);
+    public boolean isExists(Long creditCardId);
 }

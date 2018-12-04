@@ -38,16 +38,15 @@ public class CreditCardController {
     }).orElseThrow(() -> new NotFoundException("Wallet is not found "));
   }
 
-  // // Get a Single Credit
-  // @GetMapping("/credit/{id}")
-  // public CreditCard getCreditById(@PathVariable(value = "id") Long
-  // creditCardId) {
-  //
-  // return creditCardManager.findById(creditCardId);
-  // }
+  // Get a Single Credit
+  @GetMapping("/creditcards/{creditcardId}")
+  public CreditCard getCreditById(@PathVariable(value = "creditcardId") Long creditCardId) {
+    return creditCardManager.findById(creditCardId).orElseThrow(() -> new NotFoundException("CreditCard is not found"));
+  }
+
   // Update a Credit
   @PutMapping("/wallets/{walletId}/credit-cards/{creditcardId}")
-  public CreditCard updateCreditCard(@PathVariable(value = "walletid") Long walletId,
+  public CreditCard updateCreditCard(@PathVariable(value = "walletId") Long walletId,
       @PathVariable(value = "creditcardId") Long creditCardId, @Valid @RequestBody CreditCard creditCardUpdated) {
     if (!walletManager.isExists(walletId)) {
       throw new NotFoundException("Walet is not found!");
@@ -55,9 +54,10 @@ public class CreditCardController {
 
     return creditCardManager.findById(creditCardId).map(creditCard -> {
       creditCard.setCardNo(creditCardUpdated.getCardNo());
+      creditCard.setExpiredDate(creditCardUpdated.getExpiredDate());
       creditCard.setCvv(creditCardUpdated.getCvv());
       return creditCardManager.saveCreditCard(creditCard);
-    }).orElseThrow(() -> new NotFoundException("Assignment not found!"));
+    }).orElseThrow(() -> new NotFoundException("Credit card not found!"));
   }
 
   // Delete a Credit

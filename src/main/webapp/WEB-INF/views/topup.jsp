@@ -25,14 +25,8 @@
                     />
                   </div>
                   <div class="form-group">
-                    <label for="expiredDate">Expired Date</label> <%--<input
-                      type="text"
-                      name="expiredDate"
-                      class="form-control"
-                      id="expiredDate"
-                      placeholder="../../...."
-                      required
-                    />--%>
+                    <label for="expiredDate">Expired Date</label>
+
                     <input
                       type="text"
                       id="expiredDate"

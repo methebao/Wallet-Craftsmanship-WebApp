@@ -24,14 +24,19 @@ section {
   height: 100px;
   margin-right: 10px;
 }
-
+.datepickers-container {
+  z-index: 1050;
+}
+/*SUMMARY SECTION*/
+.credit-card-thumbnail {
+  cursor: pointer;
+}
 /*WALLET SECTION*/
 
 .wallet-name {
   display: inline-block;
 }
 .wallet-balance {
-  display: inline-block;
   float: right;
 }
 /*TOPUP SECTION*/

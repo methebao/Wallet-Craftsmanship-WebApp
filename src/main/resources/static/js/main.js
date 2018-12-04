@@ -126,10 +126,42 @@ $(document).ready(function() {
 
   // Wallet selector
   // Select wallet to switch credit card data
-  function getCardThumbnails(card) {
+  function getCardThumbnails(card, walletId) {
     var cardThumbnailURL = "imgs/credit-card.png";
-    output = "<img src=" + cardThumbnailURL + ' class="credit-card-thumbnail">';
+    output =
+      '<a href="wallet/' +
+      walletId +
+      "/card/" +
+      card.id +
+      '"' +
+      ' class="credit-card-link-' +
+      card.id +
+      '"><img src=' +
+      cardThumbnailURL +
+      ' class="credit-card-thumbnail"></a>';
     return output;
+  }
+  function addLinkToCreditCardThumbnail(cardId) {
+    $(".credit-card-link-" + cardId).click(function(e) {
+      e.preventDefault();
+
+      var url = e.currentTarget.toString();
+      var cardId = url.substring(url.lastIndexOf("/") + 1);
+      var walletId = url.substring(url.indexOf("/") + 1, url.indexOf("/") + 2);
+      $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/creditcards/" + cardId,
+        success: function(result) {
+          console.log(result);
+          passDataToCreditCardPopup(result);
+          $("#creditCardModal").modal("show");
+        },
+        error: function(e) {
+          console.log(e);
+          pushNotification(false, e.responseText);
+        }
+      });
+    });
   }
   $(".wallet-item").click(function(e) {
     e.preventDefault();
@@ -145,10 +177,12 @@ $(document).ready(function() {
           displayCardsThumbnail.html(output);
         }
         data.forEach(element => {
-          output += getCardThumbnails(element);
+          output += getCardThumbnails(element, walletId);
         });
-
         displayCardsThumbnail.html(output);
+        data.forEach(element => {
+          addLinkToCreditCardThumbnail(element.id);
+        });
       },
       function(errorMessage) {
         pushNotification(false, errorMessage);
@@ -168,4 +202,53 @@ $(document).ready(function() {
       }
     });
   }
+  // Pass data to creditcard popup
+  function passDataToCreditCardPopup(card) {
+    $("#cardTitle").html("Card : " + card.id);
+    $("#cardNo").val(card.cardNo);
+    $("#expiredDate").val(card.expiredDate);
+    $("#cvv").val(card.cvv);
+  }
+
+  // PUT Update credit card
+  $("#updateCreditCardForm").submit(function(e) {
+    e.preventDefault();
+    var url = $(".credit-card-link").attr("href");
+
+    var walletId = url.substring(url.indexOf("/") + 1, url.indexOf("/") + 2);
+
+    var cardId = url.substring(url.lastIndexOf("/") + 1);
+
+    var dataCreditCardInputs = {};
+    dataCreditCardInputs.cardNo = $("#cardNo").val();
+    dataCreditCardInputs.expiredDate = $("#expiredDate").val();
+    dataCreditCardInputs.cvv = $("#cvv").val();
+
+    var form = $(this);
+    var url =
+      "http://localhost:8080/api" +
+      "/wallets/" +
+      walletId +
+      "/credit-cards/" +
+      cardId;
+
+    $.ajax({
+      type: "PUT",
+      url: url,
+      contentType: "application/json; charset=utf-8",
+      datatype: "json",
+      data: JSON.stringify(dataCreditCardInputs), // serializes the form's elements.
+      success: function(data) {
+        console.log(data);
+        debugger;
+        pushNotification(true, "Successfully updated new CreditCard!!");
+      },
+      error: function(e) {
+        console.log(e);
+        pushNotification(false, e.responseText);
+      }
+    });
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+  });
 });

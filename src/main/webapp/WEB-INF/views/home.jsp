@@ -35,49 +35,86 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-12 col-md-12 col-lg-4">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">BANK & C</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Add a new wallet</h6>
-                <%--
-                <form id="addWalletForm" action="/api/wallet">
-                  --%>
-                  <div class="cards">
-                    <button class="cards-btn">AMERICAN EXPRESS</button>
-                  </div>
+          <div class="col-sm-12 col-md-12 col-lg-4"></div>
+        </div>
+      </section>
+      <!-- Popup CreditCard Details -->
+      <div
+        class="modal fade"
+        id="creditCardModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="creditCardModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="cardTitle">Card title</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="card-details">
+                <form id="updateCreditCardForm">
                   <div class="form-group">
-                    <label for="walletDescription">Description</label>
+                    <label for="cardNo"> CardNo</label>
                     <input
                       type="text"
-                      name="description"
+                      name="name"
                       class="form-control"
-                      id="walletDescription"
-                      placeholder="Wallet for shopping,..."
+                      id="cardNo"
+                      placeholder="1234 4567 7890 0123"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="expiredDate">Expired Date</label>
+                    <input
+                      type="text"
+                      id="expiredDate"
+                      class="datepicker-here form-control"
+                      data-language="en"
+                      data-min-view="months"
+                      data-view="months"
+                      data-date-format="mm-yy"
+                      required
                     />
                   </div>
 
                   <div class="form-group">
-                    <label for="initAmount">Init amount</label>
+                    <label for="cvv">CVV</label>
                     <input
                       type="text"
                       name="balance"
                       class="form-control"
-                      id="initAmount"
-                      placeholder="1000"
+                      id="cvv"
+                      placeholder="123"
                     />
-                    <small id="initAmountHelp" class="form-text text-muted"
-                      >Unit: $</small
-                    >
                   </div>
                   <div id="notification" class="alert d-none"></div>
-                  <button type="submit" class="btn btn-dark">Create</button>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-dark">Update</button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </main>
   </body>
 </html>
