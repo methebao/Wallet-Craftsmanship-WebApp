@@ -100,6 +100,8 @@ $(document).ready(function() {
       .val();
     dataCardInputs.cvv = $("#cvv").val();
 
+    dataCardInputs.balance = $("#initAmount").val();
+    debugger;
     var selectedWalletId = $("#walletSelect option:selected").val();
     var addCardToWalletEndpoint =
       "/wallets/" + selectedWalletId + "/credit-card";
@@ -208,6 +210,7 @@ $(document).ready(function() {
     $("#cardNo").val(card.cardNo);
     $("#expiredDate").val(card.expiredDate);
     $("#cvv").val(card.cvv);
+    $("#initAmount").val(card.balance);
   }
 
   // PUT Update credit card
@@ -223,6 +226,7 @@ $(document).ready(function() {
     dataCreditCardInputs.cardNo = $("#cardNo").val();
     dataCreditCardInputs.expiredDate = $("#expiredDate").val();
     dataCreditCardInputs.cvv = $("#cvv").val();
+    dataCreditCardInputs.balance = $("#initAmount").val();
 
     var form = $(this);
     var url =

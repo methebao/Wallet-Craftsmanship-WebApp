@@ -5,23 +5,19 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import javax.validation.constraints.NotBlank;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "credit_card")
+@Table(name = "transaction")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = { "createdAt", "updatedAt" }, allowGetters = true)
-public class CreditCard implements Serializable {
+public class Transaction implements Serializable {
   private static final long serialVersionUID = -8138063240254512372L;
 
   @Id
@@ -35,7 +31,6 @@ public class CreditCard implements Serializable {
   private Date expiredDate;
 
   private Integer cvv;
-  private Long balance;
 
   @Column(nullable = false, updatable = false)
   @Temporal(TemporalType.TIMESTAMP)
@@ -108,14 +103,6 @@ public class CreditCard implements Serializable {
 
   public void setWallet(Wallet wallet) {
     this.wallet = wallet;
-  }
-
-  public void setBalance(Long balance) {
-    this.balance = balance;
-  }
-
-  public Long getBalance() {
-    return balance;
   }
 
 }

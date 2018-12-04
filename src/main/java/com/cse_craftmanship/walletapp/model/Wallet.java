@@ -44,17 +44,25 @@ public class Wallet implements Serializable {
   @LastModifiedDate
   private Date updatedAt;
 
-
   public static long getSerialVersionUID() {
     return serialVersionUID;
   }
 
-
-
   @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<CreditCard> cards;
 
+  @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Set<CreditCard> payments;
+
   // Getters and Setters ...
+
+  public Set<CreditCard> getPayments() {
+    return this.payments;
+  }
+
+  public void setPayments(Set<CreditCard> payments) {
+    this.payments = payments;
+  }
 
   public long getId() {
     return this.id;
@@ -97,7 +105,11 @@ public class Wallet implements Serializable {
   }
 
   public Long getBalance() {
-    return balance;
+    long total = this.balance;
+    for (CreditCard card : this.cards) {
+      total += card.getBalance();
+    }
+    return total;
   }
 
   public void setBalance(Long balance) {
@@ -111,6 +123,5 @@ public class Wallet implements Serializable {
   public void setCards(Set<CreditCard> cards) {
     this.cards = cards;
   }
-
 
 }

@@ -56,6 +56,7 @@ public class CreditCardController {
       creditCard.setCardNo(creditCardUpdated.getCardNo());
       creditCard.setExpiredDate(creditCardUpdated.getExpiredDate());
       creditCard.setCvv(creditCardUpdated.getCvv());
+      creditCard.setBalance(creditCardUpdated.getBalance());
       return creditCardManager.saveCreditCard(creditCard);
     }).orElseThrow(() -> new NotFoundException("Credit card not found!"));
   }

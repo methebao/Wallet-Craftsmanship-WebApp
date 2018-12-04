@@ -24,5 +24,9 @@
     <definition name="wallet" extends="base.definition">
         <put-attribute name="body" value="/WEB-INF/views/wallet.jsp" />
     </definition>
+    <!-- Bill Payment Page -->
+    <definition name="billpayment" extends="base.definition">
+        <put-attribute name="body" value="/WEB-INF/views/billpayment.jsp" />
+    </definition>
 
 </tiles-definitions>

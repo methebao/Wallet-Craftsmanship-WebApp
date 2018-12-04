@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
 @Controller
 public class HomeController {
 
@@ -36,6 +34,14 @@ public class HomeController {
     walletModelView.addObject("wallets", walletManager.getAll());
 
     return walletModelView;
+  }
+
+  @RequestMapping(value = "/billpayment")
+  public ModelAndView showViewBillPayment() {
+    ModelAndView billPaymentModelView = new ModelAndView("wallet");
+    billPaymentModelView.addObject("wallets", walletManager.getAll());
+
+    return billPaymentModelView;
   }
 
 }

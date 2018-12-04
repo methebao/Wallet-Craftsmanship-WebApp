@@ -98,6 +98,17 @@
                       placeholder="123"
                     />
                   </div>
+                  <div class="form-group">
+                    <label for="initAmount">InitAmount</label>
+                    <input
+                      type="text"
+                      name="initAmount"
+                      class="form-control"
+                      id="initAmount"
+                      required
+                    />
+                  </div>
+
                   <div id="notification" class="alert d-none"></div>
                   <div class="modal-footer">
                     <button type="submit" class="btn btn-dark">Update</button>
