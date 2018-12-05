@@ -52,15 +52,15 @@ public class Wallet implements Serializable {
   private Set<CreditCard> cards;
 
   @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Set<CreditCard> payments;
+  private Set<BillPayment> payments;
 
   // Getters and Setters ...
 
-  public Set<CreditCard> getPayments() {
+  public Set<BillPayment> getPayments() {
     return this.payments;
   }
 
-  public void setPayments(Set<CreditCard> payments) {
+  public void setPayments(Set<BillPayment> payments) {
     this.payments = payments;
   }
 

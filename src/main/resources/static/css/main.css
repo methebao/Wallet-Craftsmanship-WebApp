@@ -44,3 +44,19 @@ section {
 .topup {
   width: 30%;
 }
+.bill-name,
+.bill-title {
+  color: white;
+  font-weight: 700;
+  background: lightseagreen;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+.bill-title {
+  font-size: 20px;
+}
+.type-of-bill {
+  color: whitesmoke;
+  font-size: 13px;
+  font-weight: 300;
+}

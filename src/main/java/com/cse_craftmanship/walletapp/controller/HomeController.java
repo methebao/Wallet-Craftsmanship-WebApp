@@ -38,7 +38,7 @@ public class HomeController {
 
   @RequestMapping(value = "/billpayment")
   public ModelAndView showViewBillPayment() {
-    ModelAndView billPaymentModelView = new ModelAndView("wallet");
+    ModelAndView billPaymentModelView = new ModelAndView("billpayment");
     billPaymentModelView.addObject("wallets", walletManager.getAll());
 
     return billPaymentModelView;

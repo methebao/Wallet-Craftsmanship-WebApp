@@ -23,6 +23,8 @@ public class CreditCardManagerImpl implements CreditCardManager {
     }
 
     public void deleteCreditCard(CreditCard creditCard) {
+        creditCardRepository.delete(creditCard);
+
     }
 
     public Optional<CreditCard> findById(Long creditcardId) {

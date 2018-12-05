@@ -65,6 +65,7 @@ $(document).ready(function() {
 
   // POST Create a wallet
   $("#addWalletForm").submit(function(e) {
+    e.preventDefault();
     var dataWalletInputs = {};
     dataWalletInputs.name = $("#walletName").val();
     dataWalletInputs.description = $("#walletDescription").val();
@@ -255,4 +256,87 @@ $(document).ready(function() {
 
     e.preventDefault(); // avoid to execute the actual submit of the form.
   });
+  // Select BILL Types
+
+  window.selectBill = function(billId) {
+    var billData = {
+      electricityBill: {
+        id: 1,
+        title: "Electricity"
+      },
+      mobiPhoneBill: {
+        id: 2,
+        title: "Mobi Phone"
+      },
+      waterBill: {
+        id: 3,
+        title: "Water"
+      },
+      capleBill: {
+        id: 4,
+        title: "Caple"
+      }
+    };
+    switch (billId) {
+      case billData.electricityBill.id:
+        $("#billName").html(billData.electricityBill.title);
+        break;
+
+      case billData.mobiPhoneBill.id:
+        $("#billName").html(billData.mobiPhoneBill.title);
+        break;
+
+      case billData.waterBill.id:
+        $("#billName").html(billData.waterBill.title);
+        break;
+
+      case billData.capleBill.id:
+        $("#billName").html(billData.capleBill.title);
+        break;
+      default:
+        break;
+    }
+  };
+
+  function addPayment(billTypeTitle) {
+    $("#addPaymentForm").submit(function(e) {
+      e.preventDefault();
+      var dataPaymentInputs = {};
+      dataPaymentInputs.name = billTypeTitle;
+      dataPaymentInputs.consumerNo = $("#consumerNo").val();
+      dataPaymentInputs.billNo = $("#billNo").val();
+      dataPaymentInputs.initAmount = $("#initAmount").val();
+      var selectedWalletId = $("#walletSelect option:selected").val();
+      var form = $(this);
+      var url =
+        "http://localhost:8080/api" +
+        "/wallets/" +
+        selectedWalletId +
+        "/bill-payment";
+
+      $.post({
+        url: url,
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        data: JSON.stringify(dataPaymentInputs), // serializes the form's elements.
+        success: function(data) {
+          console.log(data);
+          pushNotification(
+            true,
+            "Successfully charged " +
+              data.initAmount +
+              "for " +
+              data.name +
+              " bill"
+          );
+        },
+        error: function(e) {
+          console.log(e);
+          pushNotification(false, e.responseText);
+        }
+      });
+
+      e.preventDefault(); // avoid to execute the actual submit of the form.
+    });
+  }
 });
