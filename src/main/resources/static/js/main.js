@@ -280,18 +280,25 @@ $(document).ready(function() {
     switch (billId) {
       case billData.electricityBill.id:
         $("#billName").html(billData.electricityBill.title);
+        addPayment(billData.electricityBill.title);
         break;
 
       case billData.mobiPhoneBill.id:
         $("#billName").html(billData.mobiPhoneBill.title);
+        addPayment(billData.electricityBill.title);
+
         break;
 
       case billData.waterBill.id:
         $("#billName").html(billData.waterBill.title);
+        addPayment(billData.electricityBill.title);
+
         break;
 
       case billData.capleBill.id:
         $("#billName").html(billData.capleBill.title);
+        addPayment(billData.electricityBill.title);
+
         break;
       default:
         break;
@@ -307,13 +314,12 @@ $(document).ready(function() {
       dataPaymentInputs.billNo = $("#billNo").val();
       dataPaymentInputs.initAmount = $("#initAmount").val();
       var selectedWalletId = $("#walletSelect option:selected").val();
-      var form = $(this);
       var url =
         "http://localhost:8080/api" +
         "/wallets/" +
         selectedWalletId +
         "/bill-payment";
-
+      debugger;
       $.post({
         url: url,
         contentType: "application/json; charset=utf-8",

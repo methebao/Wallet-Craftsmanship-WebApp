@@ -9,9 +9,16 @@ import java.util.Optional;
 public interface WalletManager {
 
   public List<Wallet> getAll();
+
   public Wallet saveWallet(Wallet newWallet);
+
   public void deleteWallet(Wallet wallet);
+
   public Optional<Wallet> findById(Long walletId);
+
   public boolean isExists(Long walletid);
 
+  public Wallet addMoneyToWallet(Wallet walletToAdd, Long initAmount);
+
+  public Wallet chargeBill(Wallet walletToCharge, Long initAmount);
 }

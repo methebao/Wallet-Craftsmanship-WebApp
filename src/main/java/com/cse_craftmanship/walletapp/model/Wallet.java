@@ -105,11 +105,9 @@ public class Wallet implements Serializable {
   }
 
   public Long getBalance() {
-    long total = this.balance;
-    for (CreditCard card : this.cards) {
-      total += card.getBalance();
-    }
-    return total;
+
+    return this.balance;
+
   }
 
   public void setBalance(Long balance) {

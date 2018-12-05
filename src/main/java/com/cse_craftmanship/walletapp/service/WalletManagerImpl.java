@@ -19,15 +19,30 @@ public class WalletManagerImpl implements WalletManager {
 
     return walletRepository.findAll();
   }
+
   public Wallet saveWallet(Wallet newWallet) {
     return walletRepository.save(newWallet);
   }
+
   public void deleteWallet(Wallet wallet) {
-     walletRepository.delete(wallet);
+    walletRepository.delete(wallet);
   }
+
   public Optional<Wallet> findById(Long walletId) {
     return walletRepository.findById(walletId);
   }
-  public boolean isExists(Long walletId) { return walletRepository.existsById(walletId); }
 
+  public boolean isExists(Long walletId) {
+    return walletRepository.existsById(walletId);
+  }
+
+  public Wallet addMoneyToWallet(Wallet walletToAdd, Long initAmount) {
+    walletToAdd.setBalance(walletToAdd.getBalance() + initAmount);
+    return saveWallet(walletToAdd);
+  }
+
+  public Wallet chargeBill(Wallet walletToCharge, Long initAmount) {
+    walletToCharge.setBalance(walletToCharge.getBalance() - initAmount);
+    return saveWallet(walletToCharge);
+  }
 }

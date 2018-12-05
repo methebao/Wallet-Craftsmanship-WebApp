@@ -2,6 +2,7 @@ package com.cse_craftmanship.walletapp.controller;
 
 import com.cse_craftmanship.walletapp.exception.NotFoundException;
 import com.cse_craftmanship.walletapp.model.CreditCard;
+import com.cse_craftmanship.walletapp.model.Wallet;
 import com.cse_craftmanship.walletapp.service.CreditCardManager;
 import com.cse_craftmanship.walletapp.service.WalletManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,8 @@ public class CreditCardController {
   public CreditCard createCreditCard(@PathVariable(value = "walletId") Long walletId,
       @Valid @RequestBody CreditCard creditCard) {
     return walletManager.findById(walletId).map(wallet -> {
-      creditCard.setWallet(wallet);
+      Wallet savedWallet = walletManager.addMoneyToWallet(wallet, creditCard.getBalance());
+      creditCard.setWallet(savedWallet);
       return creditCardManager.saveCreditCard(creditCard);
     }).orElseThrow(() -> new NotFoundException("Wallet is not found "));
   }
@@ -56,7 +58,7 @@ public class CreditCardController {
       creditCard.setCardNo(creditCardUpdated.getCardNo());
       creditCard.setExpiredDate(creditCardUpdated.getExpiredDate());
       creditCard.setCvv(creditCardUpdated.getCvv());
-      creditCard.setBalance(creditCardUpdated.getBalance());
+
       return creditCardManager.saveCreditCard(creditCard);
     }).orElseThrow(() -> new NotFoundException("Credit card not found!"));
   }

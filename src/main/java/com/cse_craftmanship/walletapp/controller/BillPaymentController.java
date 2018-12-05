@@ -2,6 +2,7 @@ package com.cse_craftmanship.walletapp.controller;
 
 import com.cse_craftmanship.walletapp.exception.NotFoundException;
 import com.cse_craftmanship.walletapp.model.BillPayment;
+import com.cse_craftmanship.walletapp.model.Wallet;
 import com.cse_craftmanship.walletapp.service.BillPaymentManager;
 import com.cse_craftmanship.walletapp.service.WalletManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,8 @@ public class BillPaymentController {
       @Valid @RequestBody BillPayment billPayment) {
     // TODOS: Calculate initAmount to minus the total amount of wallet
     return walletManager.findById(walletId).map(wallet -> {
-      billPayment.setWallet(wallet);
+      Wallet savedWallet = walletManager.chargeBill(wallet, billPayment.getInitAmount());
+      billPayment.setWallet(savedWallet);
       return billPaymentManager.saveBillPayment(billPayment);
     }).orElseThrow(() -> new NotFoundException("Wallet is not found "));
   }
@@ -56,8 +58,8 @@ public class BillPaymentController {
 
     return billPaymentManager.findById(billPaymentId).map(billPayment -> {
       billPayment.setBillno(billPaymentUpdated.getBillno());
-      billPayment.setComsumerno(billPaymentUpdated.getComsumerno());
-      billPayment.setInitamount(billPaymentUpdated.getInitamount());
+      billPayment.setConsumerNo(billPaymentUpdated.getConsumerNo());
+      billPayment.setInitAmount(billPaymentUpdated.getInitAmount());
       billPayment.setName(billPaymentUpdated.getName());
       return billPaymentManager.saveBillPayment(billPayment);
     }).orElseThrow(() -> new NotFoundException("Credit card not found!"));

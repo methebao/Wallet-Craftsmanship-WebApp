@@ -25,7 +25,7 @@ public class BillPayment implements Serializable {
 
   private String name;
 
-  private String comsumerNo;
+  private String consumerNo;
 
   private String billNo;
 
@@ -58,11 +58,11 @@ public class BillPayment implements Serializable {
     this.wallet = wallet;
   }
 
-  public Long getInitamount() {
+  public Long getInitAmount() {
     return this.initAmount;
   }
 
-  public void setInitamount(Long initAmount) {
+  public void setInitAmount(Long initAmount) {
     this.initAmount = initAmount;
   }
 
@@ -74,11 +74,11 @@ public class BillPayment implements Serializable {
     this.billNo = billNo;
   }
 
-  public String getComsumerno() {
-    return this.comsumerNo;
+  public String getConsumerNo() {
+    return this.consumerNo;
   }
 
-  public void setComsumerno(String comsumerNo) {
-    this.comsumerNo = comsumerNo;
+  public void setConsumerNo(String consumerNo) {
+    this.consumerNo = consumerNo;
   }
 }
