@@ -57,7 +57,7 @@ public class BillPaymentController {
     }
 
     return billPaymentManager.findById(billPaymentId).map(billPayment -> {
-      billPayment.setBillno(billPaymentUpdated.getBillno());
+      billPayment.setBillNo(billPaymentUpdated.getBillNo());
       billPayment.setConsumerNo(billPaymentUpdated.getConsumerNo());
       billPayment.setInitAmount(billPaymentUpdated.getInitAmount());
       billPayment.setName(billPaymentUpdated.getName());

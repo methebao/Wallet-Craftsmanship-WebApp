@@ -12,7 +12,7 @@
                 <h5 class="card-title">ACCOUNT BALANCE</h5>
                 <h6 class="card-subtitle mb-2 text-muted">List wallet</h6>
                 <ul id="display-resources" class="list-group list-group-flush">
-                  <c:forEach items="${wallets}" var="wallet">
+                  <c:forEach items="${homeData.wallets}" var="wallet">
                     <li class="list-group-item">
                       <a href="${wallet.id}" class="wallet-item">
                         <div class="wallet-name"> ${wallet.name} </div>
@@ -31,11 +31,44 @@
                 <h6 class="card-subtitle mb-2 text-muted">
                   List card of ${wallet.name}
                 </h6>
-                <div id="display-cards-thumbnail"></div>
+                <div id="display-cards-thumbnail">
+                  <c:forEach items="${homeData.creditCards}" var="creditcard">
+                    <a
+                      href="wallet/${defaultWalletId}/card/${creditcard.id}"
+                      class="credit-card-link-${creditcard.id}"
+                      ><img
+                        src="imgs/credit-card.png"
+                        class="credit-card-thumbnail"
+                    /></a>
+                  </c:forEach>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-sm-12 col-md-12 col-lg-4"></div>
+          <div class="col-sm-12 col-md-12 col-lg-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">TRANSACTIONS</h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                  List transactions of ${wallet.name}
+                </h6>
+                <div id="display-transactions">
+                  <c:forEach items="${homeData.billPayments}" var="billpayment">
+                    <li class="list-group-item">
+                      <a href="#" class="billpayment-item">
+                        <div class="billpayment-name">
+                          ${billpayment.name}
+                        </div>
+                        <div class="billpayment-date">
+                          ${billpayment.createdAt}
+                        </div>
+                      </a>
+                    </li>
+                  </c:forEach>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <!-- Popup CreditCard Details -->

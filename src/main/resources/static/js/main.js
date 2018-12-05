@@ -116,7 +116,10 @@ $(document).ready(function() {
       data: JSON.stringify(dataCardInputs), // serializes the form's elements.
       success: function(data) {
         console.log(data);
-        pushNotification(true, "Successfully created a new Wallet!!");
+        pushNotification(
+          true,
+          "Successfully added a new CreditCard to Wallet:" + data.wallet.name
+        );
       },
       error: function(e) {
         console.log(e);

@@ -13,6 +13,10 @@ public class BillPaymentManagerImpl implements BillPaymentManager {
   @Autowired
   BillPaymentRepository billPaymentRepository;
 
+  public List<BillPayment> getAll() {
+    return billPaymentRepository.findAll();
+  }
+
   public List<BillPayment> getAllBillPaymentsByWalletId(Long walletId) {
 
     return billPaymentRepository.findByWalletId(walletId);

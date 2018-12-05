@@ -34,6 +34,14 @@ public class BillPayment implements Serializable {
   @CreatedDate
   private Date createdAt;
 
+  public Date getCreatedAt() {
+    return this.createdAt;
+  }
+
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
   private Long initAmount;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -66,11 +74,11 @@ public class BillPayment implements Serializable {
     this.initAmount = initAmount;
   }
 
-  public String getBillno() {
+  public String getBillNo() {
     return this.billNo;
   }
 
-  public void setBillno(String billNo) {
+  public void setBillNo(String billNo) {
     this.billNo = billNo;
   }
 
