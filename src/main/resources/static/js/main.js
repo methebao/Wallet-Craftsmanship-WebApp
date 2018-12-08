@@ -116,10 +116,7 @@ $(document).ready(function() {
       data: JSON.stringify(dataCardInputs), // serializes the form's elements.
       success: function(data) {
         console.log(data);
-        pushNotification(
-          true,
-          "Successfully added a new CreditCard to Wallet:" + data.wallet.name
-        );
+        pushNotification(true, "Successfully added a new CreditCard to Wallet");
       },
       error: function(e) {
         console.log(e);
@@ -307,7 +304,6 @@ $(document).ready(function() {
         break;
     }
   };
-
   function addPayment(billTypeTitle) {
     $("#addPaymentForm").submit(function(e) {
       e.preventDefault();
@@ -348,4 +344,6 @@ $(document).ready(function() {
       e.preventDefault(); // avoid to execute the actual submit of the form.
     });
   }
+  //Add payment form event listenner for initial stage.
+  addPayment("Electricity");
 });
