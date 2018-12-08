@@ -55,14 +55,10 @@
                 <div id="display-transactions">
                   <c:forEach items="${homeData.billPayments}" var="billpayment">
                     <li class="list-group-item">
-                      <a href="#" class="billpayment-item">
-                        <div class="billpayment-name">
-                          ${billpayment.name}
-                        </div>
-                        <div class="billpayment-date">
-                          ${billpayment.createdAt}
-                        </div>
-                      </a>
+                      <div class="billpayment-name"> ${billpayment.name} </div>
+                      <div class="billpayment-date">
+                        ${billpayment.createdAt}
+                      </div>
                     </li>
                   </c:forEach>
                 </div>

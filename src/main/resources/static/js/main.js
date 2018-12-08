@@ -102,7 +102,6 @@ $(document).ready(function() {
     dataCardInputs.cvv = $("#cvv").val();
 
     dataCardInputs.balance = $("#initAmount").val();
-    debugger;
     var selectedWalletId = $("#walletSelect option:selected").val();
     var addCardToWalletEndpoint =
       "/wallets/" + selectedWalletId + "/credit-card";
@@ -131,7 +130,7 @@ $(document).ready(function() {
   // Select wallet to switch credit card data
   function getCardThumbnails(card, walletId) {
     var cardThumbnailURL = "imgs/credit-card.png";
-    output =
+    var output =
       '<a href="wallet/' +
       walletId +
       "/card/" +
@@ -142,6 +141,18 @@ $(document).ready(function() {
       '"><img src=' +
       cardThumbnailURL +
       ' class="credit-card-thumbnail"></a>';
+    return output;
+  }
+  function getTransactionsTemplate(billpayment) {
+    var output =
+      '<li class="list-group-item">' +
+      '<div class="billpayment-name">' +
+      billpayment.name +
+      "</div>" +
+      '<div class="billpayment-date">' +
+      billpayment.createdAt +
+      "</div>" +
+      "</li>";
     return output;
   }
   function addLinkToCreditCardThumbnail(cardId) {
@@ -191,12 +202,46 @@ $(document).ready(function() {
         pushNotification(false, errorMessage);
       }
     );
+
+    getTransactionsByWalletId(
+      walletId,
+      function(data) {
+        var output = "";
+        var displayTransactions = $("#display-transactions");
+
+        if ($.isEmptyObject(data)) {
+          output +=
+            '<div class="alert alert-light">No transactions available.</div>';
+          displayTransactions.html(output);
+        }
+        data.forEach(element => {
+          output += getTransactionsTemplate(element, walletId);
+        });
+        displayTransactions.html(output);
+      },
+      function(errorMessage) {
+        pushNotification(false, errorMessage);
+      }
+    );
   });
   // Get creditcards by wallet id
   function getCreditcardsByWalletId(walletId, result, gotError) {
     $.ajax({
       type: "GET",
       url: "http://localhost:8080/api/wallets/" + walletId + "/credit-cards",
+      success: function(data) {
+        result(data);
+      },
+      error: function(e) {
+        gotError(e.responseText);
+      }
+    });
+  }
+  // Get Transactions by wallet id
+  function getTransactionsByWalletId(walletId, result, gotError) {
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:8080/api/wallets/" + walletId + "/bill-payments",
       success: function(data) {
         result(data);
       },
@@ -245,7 +290,6 @@ $(document).ready(function() {
       data: JSON.stringify(dataCreditCardInputs), // serializes the form's elements.
       success: function(data) {
         console.log(data);
-        debugger;
         pushNotification(true, "Successfully updated new CreditCard!!");
       },
       error: function(e) {
@@ -318,7 +362,6 @@ $(document).ready(function() {
         "/wallets/" +
         selectedWalletId +
         "/bill-payment";
-      debugger;
       $.post({
         url: url,
         contentType: "application/json; charset=utf-8",

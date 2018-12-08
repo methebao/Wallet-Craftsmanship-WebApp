@@ -4,6 +4,7 @@ import com.cse_craftmanship.walletapp.exception.NotFoundException;
 import com.cse_craftmanship.walletapp.model.BillPayment;
 import com.cse_craftmanship.walletapp.model.Wallet;
 import com.cse_craftmanship.walletapp.service.BillPaymentManager;
+import com.cse_craftmanship.walletapp.service.BillPaymentManagerImpl;
 import com.cse_craftmanship.walletapp.service.WalletManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,6 +27,7 @@ public class BillPaymentController {
     if (!walletManager.isExists(walletId)) {
       throw new NotFoundException("Walet is not found!");
     }
+
     return billPaymentManager.getAllBillPaymentsByWalletId(walletId);
   }
 
